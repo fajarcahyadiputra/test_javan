@@ -6,7 +6,7 @@ Install node JS **14.17.\***, You can read the installation guide in [https://no
 
 ##### 2. create database
 
-then create your first Database name "dev_test"
+then create your first Database name "test_javan"
 
 ##### 3. Install Packages
 
@@ -46,22 +46,20 @@ $ npx sequelize --help
 
 ##### 5. Import database
 
-import to database
+import to database, file database can see at database folder
 
-##### 6. Install PM2 Process Manager
+##### 6. Install nodemon
 
 ```bash
-$ npm install pm2@latest -g
+$ npm install nodemon -g
 # or
-$ yarn global add pm2
+$ yarn global add nodemon
 ```
 
-to start pm2 process run
+to start nodemon
 
 ```bash
-$ pm2 start src/index.js
-# Or start for development
-$ pm2 start src/index.js --watch
+$ npm start
 ```
 
 ##### 7. Finish
