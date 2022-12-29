@@ -1,3 +1,63 @@
+### Task Number One
+
+#### Sql query to create table
+
+### to create keluarga table
+
+```bash
+CREATE TABLE IF NOT EXISTS `keluarga` (
+`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+`nama_keluarga` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+`keterangan` text COLLATE utf8mb4_unicode_ci,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=UTF8MB4_UNICODE_CI;
+```
+
+### to create anggota table
+
+```bash
+CREATE TABLE IF NOT EXISTS `anggota` (
+`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+`keluarga_id` bigint(20) unsigned NOT NULL,
+`child_id` bigint(20) unsigned NOT NULL,
+`nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+`jenis_kelamin` enum('laki-laki','perempuan') COLLATE utf8mb4_unicode_ci NOT NULL,
+PRIMARY KEY (`id`),
+KEY `anggota_to_keluarga` (`keluarga_id`),
+CONSTRAINT `anggota_to_keluarga` FOREIGN KEY (`keluarga_id`) REFERENCES `keluarga` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### to create assets anggota table
+
+```bash
+CREATE TABLE IF NOT EXISTS `assets_anggota` (
+`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+`anggota_id` bigint(20) unsigned NOT NULL,
+`nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+`harga_satuan` int(11) NOT NULL,
+`harga` int(11) NOT NULL,
+PRIMARY KEY (`id`),
+KEY `assets_to_anggota` (`anggota_id`),
+CONSTRAINT `assets_to_anggota` FOREIGN KEY (`anggota_id`) REFERENCES `anggota` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### bto create keluarga assets table
+
+```bash
+CREATE TABLE IF NOT EXISTS `assets_keluarga` (
+`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+`keluarga_id` bigint(20) unsigned NOT NULL,
+`nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+`harga_satuan` int(11) NOT NULL,
+`jumlah` int(11) NOT NULL,
+PRIMARY KEY (`id`),
+KEY `assets_to_anggota` (`keluarga_id`),
+CONSTRAINT `assets_to_keluarga` FOREIGN KEY (`keluarga_id`) REFERENCES `keluarga` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
 ### Server Installation Setup
 
 ##### 1. Install NodeJS
