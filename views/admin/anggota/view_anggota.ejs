@@ -1,0 +1,79 @@
+<%- include('../../templets/header.ejs') %>
+<%- include('../../templets/sidebar.ejs') %>
+<%- include('../../templets/navbar.ejs') %>
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+    <%- include('../partial/message.ejs') %>
+
+      <!-- Page Heading -->
+      <h1 class="h3 mb-4 text-gray-800">Data Anggota Keluarga <%= keluarga.nama_keluarga %></h1>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+                    Add
+                </button>
+                <a  class="btn btn-warning" href="/keluarga" >
+                    Back
+                </a>
+            </div>
+            <div class="card-body">
+                <%- include('table_anggota.ejs') %>
+            </div>
+        </div>
+        <!-- end data table -->
+
+</div>
+ <!-- /.container-fluid -->
+<%- include('modal_add.ejs') %>
+<%- include('modal_edit.ejs') %>
+<%- include('../../templets/footer.ejs') %>
+
+<script>
+    $(document).on('click', '#btn-edit',function(){
+        const id = $(this).data("id")
+        $.ajax({
+            url: "/anggota/detail/"+id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(result){
+                $("#formEdit").html(`<div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input required type="text" name="nama" class="form-control" value="${result.nama}" id="name" >
+                    </div>
+                    <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select required name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                    <option  selected disabled hidden>-- Pilih Jenis Kelamin --</option>
+                    <option ${result.jenis_kelamin === "laki-laki"?"selected":""} value="laki-laki">Laki-laki</option>
+                    <option ${result.jenis_kelamin === "perempuan"?"selected":""} value="perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="keterangan">Anak Dari</label>
+                        <select required name="parent_id" id="parent_id" class="form-control">
+                        <option value="" selected disabled hidden>-- Pilih Orang Tua --</option>
+                        <option value="0">Orang Tua</option>
+                        <% all_anggota.forEach(anggota => { %>
+                            <option ${result.parent_id == "<%= anggota.id %>" ? "selected":""} value="<%= anggota.id %>"><%= anggota.nama %></option>
+                        <% }); %>
+                        </select>
+                </div>
+                <input type="hidden" name="id" value="${result.id}" id="id" >
+                <input type="hidden" name="keluarga_id" value="${result.keluarga_id}" id="keluarga_id" >
+                </div>
+                <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+                `)
+                $('#modalEdit').modal('show')
+            }
+        })
+    })
+</script>

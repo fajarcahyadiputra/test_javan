@@ -1,0 +1,37 @@
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr class="text-center">
+                <th>No</th>
+                <th>Name</th>
+                <th>Keterangan</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr class="text-center">
+                <th>No</th>
+                <th>Nama</th>
+                <th>Keterangan</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <% for(let i = 0; i < dataKeluarga.length; i++){ %>
+                <tr>
+                    <td class="text-center"><%= i+1 %></td>
+                    <td class="text-center"><%= dataKeluarga[i].nama_keluarga %></td>
+                    <td class="text-center"><%= dataKeluarga[i].keterangan %></td>
+                    <td class="d-flex justify-content-center">
+                        <button type="button" id="btn-edit" data-id="<%= dataKeluarga[i].id %>" data-nama_keluarga="<%= dataKeluarga[i].nama_keluarga %>" data-keterangan="<%= dataKeluarga[i].keterangan %>"  class="btn btn-info btn-sm btn-circle"><i class="fa fa-edit"></i></button>
+                        <form action="/keluarga?id=<%= dataKeluarga[i].id %>&_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger btn-sm btn-circle"><i class="fa fa-trash"></i></button>
+                        </form>
+                        <a class="btn btn-info btn-sm btn-circle" href="/anggota/<%= dataKeluarga[i].id %>" ata-toggle="tooltip" data-placement="top" title="View Anggota Keluarga"><i class="fas fa-users" aria-label="poioi"></i></a>
+                        <a class="btn btn-success btn-sm btn-circle" href="/assets-keluarga/<%= dataKeluarga[i].id %>" ata-toggle="tooltip" data-placement="top" title="View Asset Keluarga"><i class="fas fa-boxes"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

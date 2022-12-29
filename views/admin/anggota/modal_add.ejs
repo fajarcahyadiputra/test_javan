@@ -1,0 +1,45 @@
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal Add Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/anggota" method="post">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input required type="text" name="nama" class="form-control" id="name" >
+                    <input required type="hidden" name="keluarga_id" value="<%= keluarga.id %>">
+                </div>
+                <div class="form-group">
+                  <label for="jenis_kelamin">Jenis Kelamin</label>
+                 <select required name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                  <option  selected disabled hidden>-- Pilih Jenis Kelamin --</option>
+                  <option value="laki-laki">Laki-laki</option>
+                  <option value="perempuan">Perempuan</option>
+                 </select>
+              </div>
+              <div class="form-group">
+                <label for="keterangan">Anak Dari</label>
+                    <select required name="parent_id" id="parent_id" class="form-control">
+                      <option value="" selected disabled hidden>-- Pilih Orang Tua --</option>
+                      <option value="0">Orang Tua</option>
+                      <% all_anggota.forEach(anggota => { %>
+                        <option value="<%= anggota.id %>"><%= anggota.nama %></option>
+                      <% }); %>
+                    </select>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>

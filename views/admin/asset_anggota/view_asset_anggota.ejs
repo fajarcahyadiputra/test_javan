@@ -1,0 +1,50 @@
+<%- include('../../templets/header.ejs') %>
+<%- include('../../templets/sidebar.ejs') %>
+<%- include('../../templets/navbar.ejs') %>
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+    <%- include('../partial/message.ejs') %>
+
+      <!-- Page Heading -->
+      <h1 class="h3 mb-4 text-gray-800">Data Asset <%= anggota.nama %></h1>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+                    Add
+                </button>
+                <a  class="btn btn-warning" href="/anggota/<%= anggota.keluarga_id %>" >
+                    Back
+                </a>
+            </div>
+            <div class="card-body">
+                <%- include('table_asset_anggota.ejs') %>
+            </div>
+        </div>
+        <!-- end data table -->
+
+</div>
+ <!-- /.container-fluid -->
+<%- include('modal_add.ejs') %>
+<%- include('modal_edit.ejs') %>
+<%- include('../../templets/footer.ejs') %>
+
+<script>
+    $(document).on('click', '#btn-edit',function(){
+        const id = $(this).data("id")
+        let nama = $(this).data('nama');
+        let harga = $(this).data('harga');
+        let jumlah = $(this).data('jumlah');
+        let anggota_id   = $(this).data('anggota_id')
+        $('#formEdit #nama').val(nama);
+        $('#formEdit #harga_satuan').val(harga);
+        $('#formEdit #anggota_id').val(anggota_id);
+        $('#formEdit #jumlah').val(jumlah);
+        $('#formEdit #id').val(id);
+        $('#modalEdit').modal('show')
+    })
+</script>

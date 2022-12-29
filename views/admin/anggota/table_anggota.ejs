@@ -1,0 +1,39 @@
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr class="text-center">
+                <th>No</th>
+                <th>Name</th>
+                <th>Jenis Kelamin</th>
+                <th>Anak Dari</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr class="text-center">
+                <th>No</th>
+                <th>Name</th>
+                <th>Jenis Kelamin</th>
+                <th>Anak Dari</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <% for(let i = 0; i < dataAnggota.length; i++){ %>
+                <tr>
+                    <td class="text-center"><%= i+1 %></td>
+                    <td class="text-center"><%= dataAnggota[i].nama %></td>
+                    <td class="text-center"><%= dataAnggota[i].jenis_kelamin %></td>
+                    <td class="text-center"><%= dataAnggota[i].anak&& dataAnggota[i].anak.nama || "Orang Tua" %></td>
+                    <td class="d-flex justify-content-center">
+                        <button type="button" id="btn-edit" data-id="<%= dataAnggota[i].id %>"  class="btn btn-info btn-sm btn-circle"><i class="fa fa-edit"></i></button>
+                        <form action="/anggota?id=<%= dataAnggota[i].id %>&keluarga_id=<%= dataAnggota[i].keluarga_id %>&_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger btn-sm btn-circle"><i class="fa fa-trash"></i></button>
+                        </form>
+                        <a class="btn btn-info btn-sm btn-circle" href="/assets-anggota/<%= dataAnggota[i].id %>" ata-toggle="tooltip" data-placement="top" title="View Asset Anggota"><i class="fas fa-boxes"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,58 @@
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr class="text-center">
+                <th>No</th>
+                <th>Name</th>
+                <th>Harga Satuan</th>
+                <th>Jumlah</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr class="text-center">
+                <th>No</th>
+                <th>Name</th>
+                <th>Harga Satuan</th>
+                <th>Jumlah</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <% let total_harga = 0; for(let i = 0; i < dataAssets.length; i++){ total_harga += dataAssets[i].harga_satuan * dataAssets[i].jumlah %>
+                <tr>
+                    <td class="text-center"><%= i+1 %></td>
+                    <td class="text-center"><%= dataAssets[i].nama %></td>
+                    <td class="text-center"><%=  new Intl.NumberFormat("id-ID", {
+                        style: "currency",
+                        currency: "IDR"
+                      }).format(dataAssets[i].harga_satuan); %></td>
+                    <td class="text-center"><%= dataAssets[i].jumlah%></td>
+                    <td class="d-flex justify-content-center">
+                        <button type="button" id="btn-edit" data-id="<%= dataAssets[i].id %>" data-nama="<%= dataAssets[i].nama %>"   data-harga="<%= dataAssets[i].harga_satuan %>" data-jumlah="<%= dataAssets[i].jumlah %>" data-anggota_id="<%= dataAssets[i].anggota_id %>" class="btn btn-info btn-sm btn-circle"><i class="fa fa-edit"></i></button>
+                        <form action="/assets-anggota?id=<%= dataAssets[i].id %>&anggota_id=<%= dataAssets[i].anggota_id %>&_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger btn-sm btn-circle"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+        <tr style="">
+            <th class="text-center"><b>Total Harga Assets</b></th>
+            <td colspan="4" class="text-center font-weight-bold"><b><%= new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR"
+              }).format(total_harga); %></b></td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    
+const rupiah = (number)=>{
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR"
+    }).format(number);
+  }
+</script>
